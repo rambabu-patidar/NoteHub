@@ -1,5 +1,5 @@
 import { ButtonPrimary } from "components/ButtonPrimary/ButtonPrimary";
-import { FieldError } from "components/FieldError/FIeldError";
+import { FieldError } from "components/FieldError/FieldError";
 import { useState } from "react";
 import { PencilFill, TrashFill } from "react-bootstrap-icons";
 import { ValidatorService } from "services/validator";
