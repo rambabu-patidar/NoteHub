@@ -7,10 +7,19 @@ export const noteSlice = createSlice({
   },
   reducers: {
     setNoteList: (state, action) => {
-      state.noteList = action.payload;
+      state.noteList = action.payload.map(formatId);
+    },
+    addNote: (state, action) => {
+      state.noteList.push(formatId(action.payload));
     },
   },
 });
 
-export const { setNoteList } = noteSlice.actions;
+function formatId(note) {
+  return {
+    ...note,
+    id: note.id.toString(),
+  };
+}
+export const { setNoteList, addNote } = noteSlice.actions;
 export const notesReducer = noteSlice.reducer;

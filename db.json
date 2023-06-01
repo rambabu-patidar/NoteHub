@@ -1,7 +1,15 @@
 {
-    "notes":[{
-        "id":1,
-        "title":"h",
-        "content":"hadj"
-    }]
+  "notes": [
+    {
+      "id": 1,
+      "title": "h",
+      "content": "hadj"
+    },
+    {
+      "title": "dgh",
+      "content": "fdhsdgf",
+      "created_at": "30/5/2023",
+      "id": 2
+    }
+  ]
 }
