@@ -1,28 +1,62 @@
-import axios from "axios";
-
-const BASE_URL = "http://localhost:3200/notes";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+import { FirebaseApp } from "utils/firebase";
 
 export class NoteAPI {
   static async create(formValues) {
-    return this.formatId((await axios.post(`${BASE_URL}`, formValues)).data);
-  }
-  static async fetchAll() {
-    return (await axios.get(`${BASE_URL}`)).data.map(this.formatId);
-  }
-  static async deleteById(noteId) {
-    return (await axios.delete(`${BASE_URL}/${noteId}`)).data;
-  }
-  static async updateById(id, values) {
-    return this.formatId((await axios.patch(`${BASE_URL}/${id}`, values)).data);
-  }
-  static async fetchById(noteId) {
-    return this.formatId((await axios.get(`${BASE_URL}/${noteId}`)).data);
+    const response = await addDoc(
+      collection(FirebaseApp.db, "notes"),
+      formValues
+    );
+    return {
+      id: response.id,
+      ...formValues,
+    };
   }
 
-  static formatId(note) {
+  static async fetchAll() {
+    const q = query(
+      collection(FirebaseApp.db, "notes"),
+      orderBy("created_at", "asc")
+    );
+    const response = await getDocs(q);
+    return response.docs.map((document) => {
+      return {
+        id: document.id,
+        ...document.data(),
+      };
+    });
+  }
+  static async deleteById(noteId) {
+    deleteDoc(doc(FirebaseApp.db, "notes", noteId));
+  }
+  static async updateById(id, values) {
+    const query = doc(FirebaseApp.db, "notes", id);
+    await updateDoc(query, values);
     return {
-      ...note,
-      id: note.id.toString(),
+      id,
+      ...values,
     };
+  }
+
+  static onShouldSyncNotes(onChange) {
+    const q = query(collection(FirebaseApp.db, "notes"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      const isUserPerformingChange = querySnapshot.metadata.hasPendingWrites;
+      if (!isUserPerformingChange) {
+        console.log("You are not synced with the notes collection");
+        onChange();
+      }
+    });
+    return unsub;
   }
 }

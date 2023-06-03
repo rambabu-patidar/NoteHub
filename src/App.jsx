@@ -11,13 +11,17 @@ import s from "./style.module.css";
 export function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   async function fetchNotes() {
     const noteList = await NoteAPI.fetchAll();
     dispatch(setNoteList(noteList));
   }
 
   useEffect(() => {
-    fetchNotes();
+    const unsub = NoteAPI.onShouldSyncNotes(fetchNotes);
+    return () => {
+      unsub();
+    };
   }, []);
 
   return (
