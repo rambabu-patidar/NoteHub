@@ -37,7 +37,7 @@ export function Header() {
       <div className="col-xs-12 col-sm-4">
         <Logo
           onClick={() => navigate("/")}
-          title="Notomatic"
+          title="NoteHub"
           subtitle={"Manage your notes"}
           image={logoSrc}
         />

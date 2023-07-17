@@ -27,3 +27,8 @@ export class AuthAPI {
     signOut(FirebaseApp.auth);
   }
 }
+// The code begins by importing the necessary dependencies, including FirebaseApp from utils/firebase and authentication functions from the Firebase firebase/auth module.
+// The AuthAPI class is exported, encapsulating authentication-related methods.
+// The signin method performs user sign-in. It calls the signInWithEmailAndPassword function from Firebase authentication, passing the FirebaseApp.auth object, email, and password as parameters. It awaits the response and returns the user information as a JSON object.
+// The signup method performs user sign-up. It calls the createUserWithEmailAndPassword function from Firebase authentication, passing the FirebaseApp.auth object, email, and password as parameters. It awaits the response and returns the user information as a JSON object.
+// The signout method simply calls the signOut function from Firebase authentication, passing the FirebaseApp.auth object, to sign the user out.

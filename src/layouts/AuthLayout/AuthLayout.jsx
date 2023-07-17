@@ -5,7 +5,7 @@ export function AuthLayout({ children }) {
   const header = (
     <div className={s.header}>
       <LogoSVG className={s.logoTop} />
-      <h3 className={s.logoTitle}>Notomatic</h3>
+      <h3 className={s.logoTitle}>NoteHub</h3>
     </div>
   );
 
@@ -13,7 +13,7 @@ export function AuthLayout({ children }) {
     <div>
       <div className="d-flex">
         <LogoSVG className={s.logo} />
-        <h1 className={s.backgroundTitle}>Notomatic</h1>
+        <h1 className={s.backgroundTitle}>NoteHub</h1>
       </div>
       <p style={{ color: "white" }}>One place for the team notes</p>
     </div>
