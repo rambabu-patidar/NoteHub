@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "note-manager-369fd",
+    "build": "note-manager-369fd"
+  },
+  "targets": {},
+  "etags": {}
+}
