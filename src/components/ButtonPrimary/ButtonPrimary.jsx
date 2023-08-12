@@ -1,13 +1,15 @@
-import s from "./style.module.css";
-export function ButtonPrimary({className ,type, children, onClick, isDisabled }) {
-  return (
-    <button
-      disabled={isDisabled}
-      onClick={onClick}
-      type={type}
-      className={`btn btn-primary ${s.button}  ${s.className}`}
-    >
-      {children}
-    </button>
-  );
+import styles from "./style.module.css";
+export function ButtonPrimary(props) {
+	const buttonStyles = `btn btn-primary ${styles.button}  ${styles.className}`;
+
+	return (
+		<button
+			disabled={props.isDisabled}
+			onClick={props.onClick}
+			type={props.type}
+			className={buttonStyles}
+		>
+			{props.children}
+		</button>
+	);
 }

@@ -1,43 +1,46 @@
-import { NoteAPI } from "api/note-api";
-import { ButtonPrimary } from "components/ButtonPrimary/ButtonPrimary";
-import { Header } from "components/Header/Header";
-import { withAuthRequired } from "hoc/withAuthRequired";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+
+import { NoteAPI } from "api/note-api";
 import { setNoteList } from "store/notes/notes-slice";
+import { withAuthRequired } from "hoc/withAuthRequired";
+
+import { ButtonPrimary } from "components/ButtonPrimary/ButtonPrimary";
+import { Header } from "components/Header/Header";
+
 import s from "./style.module.css";
 
 export function App() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  async function fetchNotes() {
-    const noteList = await NoteAPI.fetchAll();
-    dispatch(setNoteList(noteList));
-  }
+	async function fetchNotes() {
+		const noteList = await NoteAPI.fetchAll();
+		dispatch(setNoteList(noteList));
+	}
 
-  useEffect(() => {
-    const unsub = NoteAPI.onShouldSyncNotes(fetchNotes);
-    return () => {
-      unsub();
-    };
-  }, []);
+	useEffect(() => {
+		const unsub = NoteAPI.onShouldSyncNotes(fetchNotes);
+		return () => {
+			unsub();
+		};
+	}, []);
 
-  return (
-    <div>
-      <Header />
-      <ButtonPrimary
-        className={s.buttonAdd}
-        onClick={() => navigate("/note/new")}
-      >
-        +
-      </ButtonPrimary>
-      <div style={{ padding: 50 }}>
-        <Outlet />
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<Header />
+			<ButtonPrimary
+				className={s.buttonAdd}
+				onClick={() => navigate("/note/new")}
+			>
+				+
+			</ButtonPrimary>
+			<div style={{ padding: 50 }}>
+				<Outlet />
+			</div>
+		</div>
+	);
 }
 
 export const ProtectedApp = withAuthRequired(App);

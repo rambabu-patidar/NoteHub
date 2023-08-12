@@ -1,12 +1,13 @@
-import s from "./style.module.css";
-export function Logo({ image, title, subtitle }) {
-  return (
-    <>
-      <div className={s.container}>
-        <img className={s.img} src={image} alt="logo" />
-        <div className={s.logo_txt}>{title}</div>
-      </div>
-      <div className={s.subtitle}>{subtitle}</div>
-    </>
-  );
+import style from "./style.module.css";
+
+export function Logo(props) {
+	return (
+		<>
+			<div className={style.container}>
+				<img className={style.img} src={props.image} alt="logo" />
+				<div className={style["logo-text"]}>{props.title}</div>
+			</div>
+			<div className={style.subtitle}>{props.subtitle}</div>
+		</>
+	);
 }
